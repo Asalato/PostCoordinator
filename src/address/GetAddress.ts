@@ -26,7 +26,7 @@ export const GetAddress = async (postalCode: string): Promise<Address | null> =>
 }
 
 export const GetRandomAddress = async (seed: number, index: number): Promise<Address | null> => {
-    const data = await fetch(`${process.env.PUBLIC_URL}/KEN_ALL.csv`).then(res => res.text()).then(txt => txt.split("\n")).then(lines => lines.map(l => l.split(",")));
+    const data = await fetch(`${process.env.PUBLIC_URL}/KEN_ALL.CSV`).then(res => res.text()).then(txt => txt.split("\n")).then(lines => lines.map(l => l.split(",")));
     const randomColumn = data[EnumeratedSeedingRandom(seed, index).nextInt(0, data.length)];
     const randomPostalCode = randomColumn[2].slice(1, -1);
 
