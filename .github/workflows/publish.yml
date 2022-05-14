@@ -12,12 +12,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-        
-      - name: Update Dependencies
-        run: npm update
 
       - name: Build
         run: npm run build
+        env:
+          CI: false
 
       - name: Deploy
         env:
