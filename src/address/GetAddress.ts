@@ -8,7 +8,7 @@ export const GetAddress = async (postalCode: string): Promise<Address | null> =>
         "postal": postalCode.toString(),
         "method": "searchByPostal"
     });
-    const url = "http://geoapi.heartrails.com/api/json?" + params.toString();
+    const url = "https://geoapi.heartrails.com/api/json?" + params.toString();
 
     try {
         const json = await fetch(url).then(res => res.json());
