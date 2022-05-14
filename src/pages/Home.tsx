@@ -9,7 +9,7 @@ import {
     NumberInput, NumberInputField,
     Spacer,
     Stack,
-    Text, useNumberInput,
+    Text, useColorMode, useColorModeValue, useNumberInput,
     VStack
 } from "@chakra-ui/react";
 import {CheckIcon, ExternalLinkIcon, InfoOutlineIcon, StarIcon} from "@chakra-ui/icons";
@@ -21,6 +21,8 @@ export const Home: React.FC = () => {
     const search = useLocation().search;
     const query = new URLSearchParams(search);
     const [id, setId] = useState<number>(Number(query.get("id")));
+
+    const startBgColor = useColorModeValue("green.100", "green.900");
 
     return (
         <Center flexDir="column">
@@ -54,7 +56,7 @@ export const Home: React.FC = () => {
                 </Text>
             </Center>
             <Divider m="10pt"/>
-            <Center p="10pt" flexDir="column" bg="green.900" rounded="lg">
+            <Center p="10pt" flexDir="column" bg={startBgColor} rounded="lg">
                 <Heading size="md"><StarIcon/> ゲームの開始</Heading>
                 <VStack m="10pt">
                     <HStack w="100%">
