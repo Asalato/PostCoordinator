@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
     return (
         <Center flexDir="column">
             <Center m="5pt" flexDir="column">
-                <Heading size="md"><CheckIcon/> Post Coordinatorとは？</Heading>
+                <Heading size="md"><CheckIcon/> Postal Coordinatorとは？</Heading>
                 <Text m="10pt" textAlign="center">
                     Lorem ipsum is placeholder text commonly used in the graphic, print, and
                     publishing industries for previewing layouts and visual mockups.

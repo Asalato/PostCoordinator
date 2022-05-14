@@ -19,7 +19,7 @@ export const App: React.FC = () => {
             <Heading padding="5pt" marginY="5pt" display="flex">
                 <Flex onClick={() => window.location.href = "/"} cursor="pointer" width="auto">🌎</Flex>
                 <Flex m="0.25rem"/>
-                POS〒
+                POS〒AL
                 <Flex m="0.15rem"/>
                 COORDINATOR
             </Heading>

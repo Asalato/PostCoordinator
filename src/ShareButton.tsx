@@ -40,7 +40,7 @@ const TwitterIntentTweet = forwardRef<HTMLAnchorElement, TwitterIntentTweetProps
 );
 
 export const ShareButton: React.FC<{ result: GameResult }> = ({result}) => {
-    let text = `🌎Post Coordinator\nGame ID：${result.id}\n---\n`;
+    let text = `🌎Postal Coordinator\nGame ID：${result.id}\n---\n`;
     for (let i = 0; i < result.stages.length; ++i) {
         text += `第${i + 1}ステージ：誤差 ${result.stages[i].distanceKm.toFixed(0)}km\n`;
     }
