@@ -1,4 +1,4 @@
-import {Box, Button, Container, Divider, Flex, Heading, theme} from "@chakra-ui/react";
+import {Box, Button, Container, Divider, extendTheme, Flex, Heading, theme} from "@chakra-ui/react";
 import Game from "./pages/Game";
 import React from "react";
 import {BrowserRouter, Navigate, Route, Routes, useNavigate, useParams} from "react-router-dom";
@@ -16,7 +16,17 @@ export const App: React.FC = () => {
     };
     return (
         <Container m="auto" maxW="500pt" alignItems="center" h="100vh" w="100%" overflowY="auto"
-                   bgColor="rgba(125, 125, 125, 0.04)">
+                   css={{
+                       '&::-webkit-scrollbar': {
+                           width: '4px',
+                       },
+                       '&::-webkit-scrollbar-track': {
+                           width: '6px',
+                       },
+                       '&::-webkit-scrollbar-thumb': {
+                           borderRadius: '24px',
+                       },
+                   }} bgColor="rgba(125, 125, 125, 0.04)">
             <Heading padding="5pt" marginY="5pt" display="flex" fontSize={["2xl", "3xl", "4xl"]}>
                 <Flex onClick={() => window.location.href = "/"} cursor="pointer" width="auto">🌎</Flex>
                 <Flex m="0.25rem"/>
@@ -35,7 +45,7 @@ export const App: React.FC = () => {
                     </Routes>
                 </BrowserRouter>
             </Box>
-            <Box position="fixed" left={0} bottom={0} m="5pt">ver. {VERSION}</Box>
+            <Box position="fixed" left={0} bottom={0} m="5pt" fontSize="xs">ver. {VERSION}</Box>
         </Container>
     );
 }

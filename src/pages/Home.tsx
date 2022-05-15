@@ -95,12 +95,14 @@ export const Home: React.FC = () => {
                 </Text>
             </Center>
             <Center m="5pt" flexDir="column">
-                <Heading size="xs"><InfoOutlineIcon/> Licenses</Heading>
+                <Heading size="xs"><InfoOutlineIcon/> Licenses & Acknowledgement</Heading>
                 <Text m="5pt" textAlign="center" fontSize="xs">
                     <Link href="https://wiki.openstreetmap.org/wiki/Leaflet" isExternal>OpenStreetMap:Leaflet</Link> is
                     used to draw the map, thanks to OpenStreetMapContributors!<br/>
                     <Link href="http://geoapi.heartrails.com/api.html" isExternal>HeartRails Geo API</Link> is used to
-                    convert between zip codes and coordinates.
+                    convert between zip codes and coordinates.<br/>
+                    郵便番号データは<Link href="https://www.post.japanpost.jp/zipcode/download.html"
+                                  isExternal>日本郵便のホームページ</Link>より取得しました。
                 </Text>
                 <Text m="5pt" textAlign="center" fontSize="xs">
                     <Image src="./logo.png" w="0.7rem" display="inline" marginX="0.2rem"/><Link

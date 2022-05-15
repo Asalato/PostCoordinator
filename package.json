@@ -1,5 +1,5 @@
 {
-  "name": "address_finderer",
+  "name": "postal_coordinator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
