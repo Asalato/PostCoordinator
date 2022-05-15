@@ -52,7 +52,7 @@ export const ShareButton: React.FC<{ result: GameResult }> = ({result}) => {
             as={TwitterIntentTweet}
             text={text}
             url={`https://postalcoordinator.asalato.net?id=${result.id}`}
-            hashtags={["PostCoordinator"]}
+            hashtags={["PostalCoordinator"]}
             colorScheme="twitter"
             leftIcon={<FaTwitter/>}>
             結果をシェアする！
