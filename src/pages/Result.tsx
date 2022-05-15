@@ -18,6 +18,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {MapContainer, Marker, Polyline, Popup, TileLayer} from "react-leaflet";
 import {LatLng, LatLngBounds, Map} from "leaflet";
 import {selectIcon, targetIcon} from "../leaflet/CustomIcons";
+import {BiWorld} from "react-icons/bi";
 
 const mapStyle = {
     maxWidth: "100%",
@@ -35,6 +36,8 @@ export const Result: React.FC = () => {
     const sw = new LatLng(Math.min(...allPlaces.map(p => p.latitude)), Math.min(...allPlaces.map(p => p.longitude)));
     const ne = new LatLng(Math.max(...allPlaces.map(p => p.latitude)), Math.max(...allPlaces.map(p => p.longitude)));
     const bounds = new LatLngBounds(sw, ne);
+
+    const score = currentGame.getTotalScore();
 
     return (
         <VStack direction="column" spacing="15pt">
@@ -72,12 +75,17 @@ export const Result: React.FC = () => {
                 </MapContainer>
             </Box>
             <Flex w="80%">
-                <Slider aria-label='slider-ex-1' defaultValue={currentGame.getTotalScore()} min={0} max={25000}
+                <Slider aria-label='slider-ex-1' defaultValue={score} min={0} max={25000}
                         marginBottom="0.5rem" isReadOnly>
                     <SliderTrack>
                         <SliderFilledTrack/>
                     </SliderTrack>
-                    <SliderThumb/>
+                    <SliderThumb boxSize={5}>
+                        <Box color="teal" as={BiWorld}/>
+                    </SliderThumb>
+                    <SliderMark value={score} textAlign='center' mt='-9' ml='-5' w='12' fontSize="lg">
+                        {(score / 250).toFixed(0)}%
+                    </SliderMark>
                     <SliderMark value={0} mt='1' ml='-2.5' fontSize='sm'>0</SliderMark>
                     <SliderMark value={5000} mt='1' ml='-2.5' fontSize='sm'>5000</SliderMark>
                     <SliderMark value={10000} mt='1' ml='-2.5' fontSize='sm'>10000</SliderMark>
@@ -86,8 +94,8 @@ export const Result: React.FC = () => {
                     <SliderMark value={25000} mt='1' ml='-2.5' fontSize='sm'>25000</SliderMark>
                 </Slider>
             </Flex>
-            <Text fontSize="lg">
-                最終スコア：{currentGame.getTotalScore().toFixed(0)}<br/>
+            <Text fontSize="lg" textAlign="center">
+                最終スコア：{score.toFixed(0)}<br/>
                 (最高スコア：{getHighScore().toFixed(0)})
             </Text>
             <Divider/>
