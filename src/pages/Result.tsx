@@ -1,6 +1,6 @@
 import {
     Box,
-    Button,
+    Button, Divider,
     Flex,
     Heading,
     HStack,
@@ -37,7 +37,7 @@ export const Result: React.FC = () => {
     const bounds = new LatLngBounds(sw, ne);
 
     return (
-        <VStack direction="column">
+        <VStack direction="column" spacing="15pt">
             <Heading fontSize="2xl" marginTop="10pt">リザルト</Heading>
             <Box w="100%">
                 <MapContainer bounds={bounds} style={mapStyle}>
@@ -54,7 +54,8 @@ export const Result: React.FC = () => {
                                 <Box key={i}>
                                     <Marker position={correctPosition} icon={targetIcon}>
                                         <Popup>
-                                            第{i}ステージ：正解 {s.address.details?.prefecture} {s.address.details?.city} {s.address.details?.address}
+                                            第{i}ステージ：正解
+                                            [{s.address.details?.prefecture} {s.address.details?.city} {s.address.details?.address}]
                                         </Popup>
                                     </Marker>
                                     <Marker position={selectedPosition} icon={selectIcon}>
@@ -72,7 +73,7 @@ export const Result: React.FC = () => {
             </Box>
             <Flex w="80%">
                 <Slider aria-label='slider-ex-1' defaultValue={currentGame.getTotalScore()} min={0} max={25000}
-                        marginBottom="1.5rem" isReadOnly>
+                        marginBottom="0.5rem" isReadOnly>
                     <SliderTrack>
                         <SliderFilledTrack/>
                     </SliderTrack>
@@ -89,6 +90,7 @@ export const Result: React.FC = () => {
                 最終スコア：{currentGame.getTotalScore().toFixed(0)}<br/>
                 (最高スコア：{getHighScore().toFixed(0)})
             </Text>
+            <Divider/>
             <Box>
                 <ShareButton result={currentGame}/>
             </Box>
