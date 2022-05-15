@@ -96,6 +96,13 @@ export const Home: React.FC = () => {
                     <Link href="http://geoapi.heartrails.com/api.html" isExternal>HeartRails Geo API</Link> is used to
                     convert between zip codes and coordinates.
                 </Text>
+                <Text m="5pt" textAlign="center" fontSize="xs">
+                    <Image src="./logo.png" w="0.7rem" display="inline" marginX="0.2rem"/><Link
+                    href="https://portfolio.asalato.net/" isExternal>Asalato
+                    Workshop</Link> reserves all rights related to this project<br/>
+                    All assets are available on <Link href="https://github.com/Asalato/PostalCoordinator"
+                                                      isExternal>GitHub</Link> in an open source initiative.
+                </Text>
             </Center>
         </Center>
     );
