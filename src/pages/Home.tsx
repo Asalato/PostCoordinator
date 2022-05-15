@@ -43,13 +43,16 @@ export const Home: React.FC = () => {
             <Center p="10pt" flexDir="column" bg={startBgColor} rounded="lg">
                 <Heading size="md"><StarIcon/> ゲーム開始</Heading>
                 <VStack m="10pt">
-                    <HStack w="100%">
-                        <Heading size="sm" flex={2}>ランダムモード</Heading>
-                        <Flex flex={1.5}/>
-                        <Button flex={1} colorScheme='teal' variant='outline' onClick={() => navigate("/game")}>
-                            開始
-                        </Button>
-                    </HStack>
+                    {
+                        id == 0 ?
+                            <HStack w="100%">
+                                <Heading size="sm" flex={2}>ランダムモード</Heading>
+                                <Flex flex={1.5}/>
+                                <Button flex={1} colorScheme='teal' variant='outline' onClick={() => navigate("/game")}>
+                                    開始
+                                </Button>
+                            </HStack> : ""
+                    }
                     <HStack w="100%">
                         <Heading size="sm" flex={2}>固定ステージモード</Heading>
                         <Flex flex={0.1}/>
