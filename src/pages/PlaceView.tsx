@@ -95,8 +95,8 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
                         <VStack alignItems="baseline" w="inline">
                             <HStack>
                                 <Text>正解：</Text>
-                                <Badge fontSize="lg">
-                                    {address.details?.prefecture} {address.details?.city} {address.details?.address}
+                                <Badge fontSize="lg" whiteSpace="break-spaces">
+                                    {address.details?.prefecture}{address.details?.city}{address.details?.address}
                                 </Badge>
                             </HStack>
                             <HStack>
