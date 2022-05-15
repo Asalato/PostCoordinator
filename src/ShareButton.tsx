@@ -51,7 +51,7 @@ export const ShareButton: React.FC<{ result: GameResult }> = ({result}) => {
         <Button
             as={TwitterIntentTweet}
             text={text}
-            url={`https://postcoordinator.asalato.net?id=${result.id}`}
+            url={`https://postalcoordinator.asalato.net?id=${result.id}`}
             hashtags={["PostCoordinator"]}
             colorScheme="twitter"
             leftIcon={<FaTwitter/>}>
