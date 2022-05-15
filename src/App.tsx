@@ -35,7 +35,7 @@ export const App: React.FC = () => {
                     </Routes>
                 </BrowserRouter>
             </Box>
-            <Box position="absolute" left={0} bottom={0} m="5pt">ver. {VERSION}</Box>
+            <Box position="fixed" left={0} bottom={0} m="5pt">ver. {VERSION}</Box>
         </Container>
     );
 }

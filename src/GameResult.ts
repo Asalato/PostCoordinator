@@ -1,4 +1,4 @@
-import {Address} from "./address/Address";
+import {Address, Coordinate} from "./address/Address";
 
 export class GameResult {
     public id: number;
@@ -6,7 +6,7 @@ export class GameResult {
 
     public constructor(id: number, stages: Stage[]) {
         this.id = id;
-        this.stages = stages.map(s => new Stage(s.address, s.distanceKm));
+        this.stages = stages.map(s => new Stage(s.address, s.distanceKm, s.selected));
     }
 
     public getTotalScore(): number {
@@ -17,10 +17,12 @@ export class GameResult {
 export class Stage {
     public address: Address;
     public distanceKm: number;
+    public selected: Coordinate;
 
-    public constructor(address: Address, distanceKm: number) {
+    public constructor(address: Address, distanceKm: number, selected: Coordinate) {
         this.address = address;
         this.distanceKm = distanceKm;
+        this.selected = selected;
     }
 
     public getScore() {

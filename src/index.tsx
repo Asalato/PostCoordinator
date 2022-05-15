@@ -11,6 +11,10 @@ const theme = extendTheme({
     fonts: {
         heading: "DotGothic16, sans-serif;",
         body: "DotGothic16, sans-serif;"
+    },
+    config: {
+        initialColorMode: 'system',
+        useSystemColorMode: true,
     }
 })
 

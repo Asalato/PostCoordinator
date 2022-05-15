@@ -1,8 +1,8 @@
 import React, {useMemo, useRef, useState} from 'react';
-import {MapContainer, Marker, Polyline, TileLayer} from 'react-leaflet'
+import {MapContainer, Marker, Polyline, Popup, TileLayer} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import Leaflet, {LatLng, Marker as Mark, Map, LatLngBounds} from "leaflet";
-import {Address} from "../address/Address";
+import {Address, Coordinate} from "../address/Address";
 import {
     Badge,
     Box,
@@ -18,9 +18,7 @@ import {
     VStack
 } from "@chakra-ui/react";
 import {getScore, Stage} from "../GameResult";
-
-Leaflet.Icon.Default.imagePath =
-    '//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/';
+import {selectIcon, targetIcon} from "../leaflet/CustomIcons";
 
 const mapStyle = {
     maxWidth: "100%",
@@ -52,18 +50,9 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
     if (address == null) return <Center style={mapStyle} m="10pt"><Spinner size="xl"/></Center>;
 
     const position = new LatLng(address.coordinate.latitude, address.coordinate.longitude);
-    const zoom = 5;
-
-    const blueIcon = new Leaflet.Icon({
-        iconUrl: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF"
-    });
-
-    const greenIcon = new Leaflet.Icon({
-        iconUrl: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|2ecc71&chf=a,s,ee00FFFF"
-    });
 
     const showResult = () => {
-        endTrialAction(new Stage(address, currentPosition.distanceTo(position) / 1000));
+        endTrialAction(new Stage(address, currentPosition.distanceTo(position) / 1000, new Coordinate(currentPosition.lat, currentPosition.lng)));
 
         const map = mapRef.current;
         if (map == null) return;
@@ -74,20 +63,22 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
     return (
         <Box m="10pt">
             <MapContainer ref={mapRef}
-                          center={defaultPosition} zoom={zoom} style={mapStyle}>
+                          center={defaultPosition} zoom={5} style={mapStyle}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker eventHandlers={markerEventHandlers} ref={markerRef}
+                <Marker eventHandlers={markerEventHandlers} ref={markerRef} icon={selectIcon}
                         position={currentPosition} draggable={playing} autoPan/>
                 {
                     !playing ? (
                         <>
-                            <Marker position={position}>
-                                ({address.coordinate.latitude}, {address.coordinate.longitude})
+                            <Marker position={position} icon={targetIcon}>
+                                <Popup>
+                                    ({address.coordinate.latitude}, {address.coordinate.longitude})
+                                </Popup>
                             </Marker>
-                            <Polyline positions={[currentPosition, position]}/>
+                            <Polyline positions={[currentPosition, position]} color="green"/>
                         </>
                     ) : ""
                 }
