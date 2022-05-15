@@ -15,7 +15,8 @@ const theme = extendTheme({
     config: {
         initialColorMode: 'system',
         useSystemColorMode: true,
-    }
+    },
+    breakpoints: ["0px", "443px", "600px"]
 })
 
 root.render(

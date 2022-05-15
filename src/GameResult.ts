@@ -31,8 +31,8 @@ export class Stage {
 }
 
 export const getScore = (distanceKm: number): number => {
-    if (distanceKm > 2000) return 0;
-    if (distanceKm > 500) return (2000 - distanceKm) / 1500 * 2500;
-    if (distanceKm > 200) return (500 - distanceKm) / 300 * 1500 + 2500;
-    return (200 - distanceKm) * 5 + 4000;
+    if (distanceKm > 1200) return 0;
+    if (distanceKm > 500) return (1200 - distanceKm) / 700 * 2000;
+    if (distanceKm > 100) return (500 - distanceKm) / 400 * 2000 + 2000;
+    return (100 - distanceKm) * 10 + 4000;
 }

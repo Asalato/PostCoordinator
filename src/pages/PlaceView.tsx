@@ -15,7 +15,7 @@ import {
     Spacer,
     Spinner,
     Text,
-    VStack
+    VStack, Wrap, WrapItem
 } from "@chakra-ui/react";
 import {getScore, Stage} from "../GameResult";
 import {selectIcon, targetIcon} from "../leaflet/CustomIcons";
@@ -63,7 +63,7 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
     return (
         <Box m="10pt">
             <MapContainer ref={mapRef}
-                          center={defaultPosition} zoom={5} style={mapStyle}>
+                          center={currentPosition} zoom={5} style={mapStyle}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -85,14 +85,13 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
             </MapContainer>
             {
                 !playing ? (
-                    <Center>
+                    <Wrap justify="center">
                         <HStack>
                             <Heading size="lg">
                                 {getScore(currentPosition.distanceTo(position) / 1000).toFixed(0)}
                             </Heading>
                             <Text fontSize="md">ポイント</Text>
                         </HStack>
-                        <Flex m="5pt"/>
                         <VStack alignItems="baseline" w="inline">
                             <HStack>
                                 <Text>正解：</Text>
@@ -107,7 +106,7 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
                                 </Badge>
                             </HStack>
                         </VStack>
-                    </Center>
+                    </Wrap>
                 ) : (
                     <Flex>
                         <Spacer/>

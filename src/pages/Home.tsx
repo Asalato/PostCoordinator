@@ -27,11 +27,11 @@ export const Home: React.FC = () => {
     return (
         <Center flexDir="column">
             <Center m="5pt" flexDir="column">
-                <Heading size="md"><CheckIcon/>🌎Postal Coordinatorとは？</Heading>
+                <Heading size="md">🌎Postal Coordinatorとは？</Heading>
                 <Text m="10pt" textAlign="center" fontSize="sm">
                     🌎Postal Coordinatorは日本で利用されている郵便番号制度を題材としたゲームです。<br/>
-                    あなたは普段、郵便を出すときや宅配を頼むときに記入する住所についてどのくらい考えたことがありますか？
-                    隣のマンションの郵便番号は？隣の市の番号は？<br/>
+                    あなたは普段、郵便を出すときや宅配を頼むときに記入する住所についてどのくらい考えていますか？
+                    隣の家の郵便番号は？隣の市の番号は？<br/>
                     🌎Postal Coordinatorは、このように、普段身近に接しているようであまり知らない、郵便番号について理解を深めることができるゲームです。
                     <br/>
                     <Link href='https://www.post.japanpost.jp/zipcode/zipmanual/index.html' isExternal>
@@ -69,7 +69,7 @@ export const Home: React.FC = () => {
             </Center>
             <Divider m="10pt"/>
             <Center m="5pt" flexDir="column">
-                <Heading size="md"><CheckIcon/>ゲームの流れ</Heading>
+                <Heading size="md"><CheckIcon/> ゲームの流れ</Heading>
                 <Text m="10pt" textAlign="center" fontSize="sm">
                     1ゲームは5個のステージで構成されます。<br/>
                     各ステージではお題となる郵便番号が示され、その郵便番号が示す位置をなるべく正確に選択することが目標です。<br/>
@@ -79,17 +79,19 @@ export const Home: React.FC = () => {
                 </Text>
             </Center>
             <Center m="5pt" flexDir="column">
-                <Heading size="md"><CheckIcon/>スコアの計算方法</Heading>
+                <Heading size="md"><CheckIcon/> スコアの計算方法</Heading>
                 <Text m="10pt" textAlign="center" fontSize="sm">
                     各ステージで決められた目標地点とあなたが選択した地点の距離からスコアが算出されます。<br/>
                     各ステージ5000点満点で、より近い方が高得点となります。
                 </Text>
             </Center>
             <Center m="5pt" flexDir="column">
-                <Heading size="xs"><InfoOutlineIcon/> ライセンス表記</Heading>
+                <Heading size="xs"><InfoOutlineIcon/> Licenses</Heading>
                 <Text m="5pt" textAlign="center" fontSize="xs">
-                    Lorem ipsum is placeholder text commonly used in the graphic, print, and
-                    publishing industries for previewing layouts and visual mockups.
+                    <Link href="https://wiki.openstreetmap.org/wiki/Leaflet" isExternal>OpenStreetMap:Leaflet</Link> is
+                    used to draw the map, thanks to OpenStreetMapContributors!<br/>
+                    <Link href="http://geoapi.heartrails.com/api.html" isExternal>HeartRails Geo API</Link> is used to
+                    convert between zip codes and coordinates.
                 </Text>
             </Center>
         </Center>

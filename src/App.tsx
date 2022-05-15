@@ -15,9 +15,9 @@ export const App: React.FC = () => {
         return isNaN(seed) ? <Navigate to="/" replace/> : <Game seed={seed}/>;
     };
     return (
-        <Container m="auto" maxW="500pt" alignItems="center" h="100vh">
-            <Flex position="absolute" bgColor="lightgray" minW="500pt" h="100vh" m="0" p="0" opacity={0.1} zIndex={-1}/>
-            <Heading padding="5pt" marginY="5pt" display="flex">
+        <Container m="auto" maxW="500pt" alignItems="center" h="100vh" w="100%" overflowY="auto"
+                   bgColor="rgba(255, 255, 255, 0.08)">
+            <Heading padding="5pt" marginY="5pt" display="flex" fontSize={["2xl", "3xl", "4xl"]}>
                 <Flex onClick={() => window.location.href = "/"} cursor="pointer" width="auto">🌎</Flex>
                 <Flex m="0.25rem"/>
                 POS〒AL

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {PlaceView} from "./PlaceView";
 import {Address} from "../address/Address";
 import {GetRandomAddress} from "../address/GetAddress";
-import {Box, Button, Flex, Heading, HStack, Text, Link, Spacer, Badge, Spinner} from "@chakra-ui/react";
+import {Box, Button, Flex, Heading, HStack, Text, Link, Spacer, Badge, VStack, Wrap, WrapItem} from "@chakra-ui/react";
 import {tryUpdateHighScore, updateCurrentGame} from "../ScoreStore";
 import {useNavigate} from "react-router-dom";
 import {GameResult, Stage} from "../GameResult";
@@ -35,22 +35,27 @@ export const Game: React.FC<{ seed: number }> = ({seed}) => {
 
     return (
         <Box className="App">
-            <HStack m="10pt" alignItems="end">
-                {
-                    address == null ? "" :
-                        <HStack>
-                            <Text fontSize="xl">お題：</Text>
-                            <Badge fontSize="2xl">〒{address.postalCode.toString()}</Badge>
-                        </HStack>
-                }
-                <Spacer/>
-                <Heading size="md">
-                    {times}/{MAX_GAME}&nbsp;ゲーム
-                </Heading>
-                <Heading size="sm">
-                    累計スコア：{gameResult.getTotalScore().toFixed(0)}ポイント
-                </Heading>
-            </HStack>
+            <Wrap m="10pt" justify={["end", "space-between", "space-between"]}>
+                <WrapItem alignItems="end" marginRight="auto !important">
+                    {
+                        address == null ? "" :
+                            <HStack>
+                                <Text fontSize="xl">お題：</Text>
+                                <Badge fontSize="2xl">〒{address.postalCode.toString()}</Badge>
+                            </HStack>
+                    }
+                </WrapItem>
+                <WrapItem marginLeft="auto !important">
+                    <VStack alignItems="end">
+                        <Heading size="md">
+                            {times}/{MAX_GAME}&nbsp;ゲーム
+                        </Heading>
+                        <Heading size="sm">
+                            累計スコア：{gameResult.getTotalScore().toFixed(0)}ポイント
+                        </Heading>
+                    </VStack>
+                </WrapItem>
+            </Wrap>
             <PlaceView address={address} playing={playing} endTrialAction={(stage) => {
                 setPlaying(false);
                 addStageToResult(stage);
