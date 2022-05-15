@@ -38,7 +38,7 @@ export const Result: React.FC = () => {
     const bounds = new LatLngBounds(sw, ne);
 
     const score = currentGame.getTotalScore();
-
+    
     return (
         <VStack direction="column" spacing="15pt">
             <Heading fontSize="2xl" marginTop="10pt">リザルト</Heading>
