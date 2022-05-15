@@ -84,13 +84,18 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Marker eventHandlers={markerEventHandlers} ref={markerRef} icon={selectIcon}
-                        position={currentPosition} draggable={playing} autoPan/>
+                        position={currentPosition} draggable={playing} autoPan>
+                    <Popup>
+                        選択 ({currentPosition.lat.toFixed(2)}, {currentPosition.lng.toFixed(2)})
+                    </Popup>
+                </Marker>
                 {
                     !playing ? (
                         <>
                             <Marker position={position} icon={targetIcon}>
                                 <Popup>
-                                    ({address.coordinate.latitude}, {address.coordinate.longitude})
+                                    正解
+                                    ({address.coordinate.latitude.toFixed(2)}, {address.coordinate.longitude.toFixed(2)})
                                 </Popup>
                             </Marker>
                             <Polyline positions={[currentPosition, position]} color="green"/>
