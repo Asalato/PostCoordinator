@@ -1,4 +1,4 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {MapContainer, Marker, Polyline, Popup, TileLayer} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import Leaflet, {LatLng, Marker as Mark, Map, LatLngBounds} from "leaflet";
@@ -14,7 +14,7 @@ import {
     SimpleGrid,
     Spacer,
     Spinner,
-    Text,
+    Text, useTimeout,
     VStack, Wrap, WrapItem
 } from "@chakra-ui/react";
 import {getScore, Stage} from "../GameResult";
@@ -25,6 +25,8 @@ const mapStyle = {
     aspectRatio: "3/2",
     margin: "10pt"
 }
+
+const TIMER = 60;
 
 export const PlaceView: React.FC<{ address: Address | null, playing: boolean, endTrialAction: (stage: Stage) => void }> = ({
                                                                                                                                address,
@@ -47,13 +49,26 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
         }),
         []);
 
+    const [timer, setTimer] = useState<number>(TIMER);
+    useEffect(() => {
+        const interval = setTimeout(() => {
+            if (playing) {
+                setTimer(timer - 1);
+            }
+            if (timer <= 0) {
+                showResult();
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    })
+
     if (address == null) return <Center style={mapStyle} m="10pt"><Spinner size="xl"/></Center>;
 
     const position = new LatLng(address.coordinate.latitude, address.coordinate.longitude);
 
     const showResult = () => {
+        setTimer(TIMER);
         endTrialAction(new Stage(address, currentPosition.distanceTo(position) / 1000, new Coordinate(currentPosition.lat, currentPosition.lng)));
-
         const map = mapRef.current;
         if (map == null) return;
         const bound = new LatLngBounds(currentPosition, position);
@@ -96,7 +111,7 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
                             <HStack>
                                 <Text>正解：</Text>
                                 <Badge fontSize="lg" whiteSpace="break-spaces">
-                                    {address.details?.prefecture}{address.details?.city}{address.details?.address}
+                                    {address.details?.prefecture} {address.details?.city} {address.details?.address}
                                 </Badge>
                             </HStack>
                             <HStack>
@@ -108,11 +123,15 @@ export const PlaceView: React.FC<{ address: Address | null, playing: boolean, en
                         </VStack>
                     </Wrap>
                 ) : (
-                    <Flex>
-                        <Spacer/>
+                    <HStack justify="end">
+                        <Heading fontSize="md" alignItems="center">残り時間</Heading>
+                        <Badge fontSize="lg">
+                            {Math.floor(timer / 60)}：{`0${Math.floor(timer % 60)}`.slice(-2)}
+                        </Badge>
+                        <Flex m="5pt"/>
                         <Button colorScheme='teal' variant='outline' onClick={showResult}
                                 disabled={!playing}>決定!</Button>
-                    </Flex>
+                    </HStack>
                 )
             }
         </Box>
