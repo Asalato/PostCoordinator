@@ -59,7 +59,8 @@ export const Result: React.FC = () => {
                                     </Marker>
                                     <Marker position={selectedPosition} icon={selectIcon}>
                                         <Popup>
-                                            第{i}ステージ：選択 ({selectedPosition.lat}, {selectedPosition.lng})
+                                            第{i}ステージ：選択
+                                            ({selectedPosition.lat.toFixed(2)}, {selectedPosition.lng.toFixed(2)})
                                         </Popup>
                                     </Marker>
                                     <Polyline positions={[correctPosition, selectedPosition]} color="green"/>
