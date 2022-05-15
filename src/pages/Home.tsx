@@ -34,8 +34,14 @@ export const Home: React.FC = () => {
                     隣の家の郵便番号は？隣の市の番号は？<br/>
                     🌎Postal Coordinatorで、そんな、普段身近に接しているようであまり知らない、郵便番号への理解を深めることができます。
                 </Text>
-                <Link href='https://www.post.japanpost.jp/zipcode/zipmanual/index.html' isExternal fontSize="sm">
+                <Link href='https://www.post.japanpost.jp/zipcode/zipmanual/index.html' isExternal fontSize="sm"
+                      textAlign="center">
                     郵便番号について詳しくはこちら（日本郵政の公式サイト） <ExternalLinkIcon mx='2px'/>
+                </Link>
+                <Link
+                    href='https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E9%83%B5%E4%BE%BF%E7%95%AA%E5%8F%B7'
+                    isExternal fontSize="sm" textAlign="center">
+                    攻略情報はこちら（Wikipedia - 日本の郵便番号） <ExternalLinkIcon mx='2px'/>
                 </Link>
             </Center>
             <Divider m="10pt"/>
@@ -99,7 +105,7 @@ export const Home: React.FC = () => {
                 <Text m="5pt" textAlign="center" fontSize="xs">
                     <Image src="./logo.png" w="0.7rem" display="inline" marginX="0.2rem"/><Link
                     href="https://portfolio.asalato.net/" isExternal>Asalato
-                    Workshop</Link> reserves all rights related to this project<br/>
+                    Workshop</Link> reserves all rights related to this project.<br/>
                     All assets are available on <Link href="https://github.com/Asalato/PostalCoordinator"
                                                       isExternal>GitHub</Link> in an open source initiative.
                 </Text>
