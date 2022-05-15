@@ -19,8 +19,8 @@ import {useLocation, useNavigate} from "react-router-dom";
 export const Home: React.FC = () => {
     const navigate = useNavigate();
     const search = useLocation().search;
-    const query = new URLSearchParams(search);
-    const [id, setId] = useState<number>(Number(query.get("id")));
+    const idStr = new URLSearchParams(search).get("id");
+    const [id, setId] = useState<number | undefined>(idStr === null ? undefined : Number(idStr));
 
     const startBgColor = useColorModeValue("green.100", "green.900");
 
@@ -30,7 +30,7 @@ export const Home: React.FC = () => {
                 <Heading size="md">🌎Postal Coordinatorとは？</Heading>
                 <Text m="10pt" textAlign="center" fontSize="sm">
                     🌎Postal Coordinatorは日本で利用されている郵便番号制度を題材としたゲームです。<br/>
-                    あなたは普段、郵便を出すときや宅配を頼むときに記入する住所についてどのくらい考えていますか？
+                    普段、郵便を出すときや宅配を頼むときに記入する住所についてどのくらい考えていますか？
                     隣の家の郵便番号は？隣の市の番号は？<br/>
                     🌎Postal Coordinatorは、このように、普段身近に接しているようであまり知らない、郵便番号について理解を深めることができるゲームです。
                     <br/>
@@ -44,14 +44,14 @@ export const Home: React.FC = () => {
                 <Heading size="md"><StarIcon/> ゲーム開始</Heading>
                 <VStack m="10pt">
                     {
-                        id == 0 ?
+                        idStr !== null ? "" :
                             <HStack w="100%">
                                 <Heading size="sm" flex={2}>ランダムモード</Heading>
                                 <Flex flex={1.5}/>
                                 <Button flex={1} colorScheme='teal' variant='outline' onClick={() => navigate("/game")}>
                                     開始
                                 </Button>
-                            </HStack> : ""
+                            </HStack>
                     }
                     <HStack w="100%">
                         <Heading size="sm" flex={2}>固定ステージモード</Heading>
@@ -64,7 +64,8 @@ export const Home: React.FC = () => {
                             </NumberInput>
                         </InputGroup>
                         <Flex flex={0.1}/>
-                        <Button flex={0.5} colorScheme='teal' variant='outline' onClick={() => navigate(`/game/${id}`)}>
+                        <Button flex={0.5} colorScheme='teal' variant='outline' onClick={() => navigate(`/game/${id}`)}
+                                disabled={id === undefined}>
                             開始
                         </Button>
                     </HStack>
