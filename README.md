@@ -1,4 +1,17 @@
-# リリースチェックリスト
+# 🌎Postal Coordinator
+
+- reactで作成
+- クローン後、`npm run start`でruntimeデバッグ環境に
+- `npm run build`でプロダクションビルド
+
+- GitHub Actionsでデプロイを自動化
+    - S3 -> CloudFrontでhttps対応
+- UIデザインはChakra UIに丸投げ
+    - フォントを弄ると結構それっぽくなることが分かった
+
+## リリースチェックリスト
+
+追加したい要素があったらここに書いていく
 
 - [x] 説明の追加
     - [x] とは
