@@ -10,10 +10,10 @@ import {
     Image,
     Stack,
     Text, useColorMode, useColorModeValue, useNumberInput,
-    VStack, UnorderedList, ListItem, OrderedList
+    VStack, UnorderedList, ListItem, OrderedList, useBreakpointValue
 } from "@chakra-ui/react";
 import {CheckIcon, ExternalLinkIcon, Icon, InfoOutlineIcon, StarIcon} from "@chakra-ui/icons";
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {isDailyDone} from "../ScoreStore";
 
@@ -24,6 +24,7 @@ export const Home: React.FC = () => {
     const [id, setId] = useState<number | undefined>(idStr === null ? undefined : Number(idStr));
 
     const startBgColor = useColorModeValue("green.100", "green.900");
+    const dailyButtonValue = useBreakpointValue<ReactElement>([(<>開始<br/>(1日1回)</>), <>開始 (1日1回)</>, <>開始 (1日1回)</>]);
 
     return (
         <Center flexDir="column">
@@ -63,7 +64,7 @@ export const Home: React.FC = () => {
                                     ) : (
                                         <Button flex={1} colorScheme='teal' variant='outline'
                                                 onClick={() => navigate("/game/daily")}>
-                                            開始 (1日1回)
+                                            {dailyButtonValue}
                                         </Button>
                                     )
                                 }
