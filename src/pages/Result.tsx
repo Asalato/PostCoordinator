@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import {ShareButton} from "../ShareButton";
 import React, {useEffect, useState} from "react";
-import {getCurrentGame, getHighScore} from "../ScoreStore";
+import {getCurrentGame, getDailyGame, getHighScore} from "../ScoreStore";
 import {Navigate, useNavigate} from "react-router-dom";
 import {MapContainer, Marker, Polyline, Popup, TileLayer} from "react-leaflet";
 import {LatLng, LatLngBounds, Map} from "leaflet";
@@ -26,9 +26,9 @@ const mapStyle = {
     margin: "10pt",
 }
 
-export const Result: React.FC = () => {
+export const Result: React.FC<{ isDaily?: boolean }> = ({isDaily}) => {
     const navigate = useNavigate();
-    const currentGame = getCurrentGame();
+    const currentGame = isDaily || isDaily !== undefined ? getDailyGame() : getCurrentGame();
 
     if (currentGame == null) return <Navigate replace to="/"/>
 
@@ -38,10 +38,11 @@ export const Result: React.FC = () => {
     const bounds = new LatLngBounds(sw, ne);
 
     const score = currentGame.getTotalScore();
-    
+
     return (
         <VStack direction="column" spacing="15pt">
             <Heading fontSize="2xl" marginTop="10pt">リザルト</Heading>
+            <Text>{currentGame.day && (isDaily || isDaily !== undefined) ? `デイリーチャレンジ: ${currentGame.day.getFullYear()}/${currentGame.day.getMonth() + 1}/${currentGame.day.getDate()}` : `ゲームID: ${currentGame.id}`}</Text>
             <Box w="100%">
                 <MapContainer bounds={bounds} style={mapStyle}>
                     <TileLayer
@@ -109,7 +110,6 @@ export const Result: React.FC = () => {
                 <Button colorScheme='teal' variant='outline' onClick={() => navigate("/")}>
                     トップに戻る
                 </Button>
-                <Spacer/>
             </HStack>
         </VStack>
     )

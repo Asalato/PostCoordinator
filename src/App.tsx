@@ -1,5 +1,5 @@
 import {Box, Button, Container, Divider, extendTheme, Flex, Heading, theme} from "@chakra-ui/react";
-import Game from "./pages/Game";
+import Game, {DailyGame} from "./pages/Game";
 import React from "react";
 import {BrowserRouter, Navigate, Route, Routes, useNavigate, useParams} from "react-router-dom";
 import {Home} from "./pages/Home";
@@ -41,7 +41,9 @@ export const App: React.FC = () => {
                         <Route path="/" element={<Home/>}/>
                         <Route path="/game" element={<Navigate replace to={`/game/${getRandomSeed()}`}/>}/>
                         <Route path="/game/:id" element={<GameNode/>}/>
+                        <Route path="/game/daily" element={<DailyGame/>}/>
                         <Route path="/result" element={<Result/>}/>
+                        <Route path="/result/daily" element={<Result isDaily/>}/>
                     </Routes>
                 </BrowserRouter>
             </Box>

@@ -15,6 +15,7 @@ import {
 import {CheckIcon, ExternalLinkIcon, Icon, InfoOutlineIcon, StarIcon} from "@chakra-ui/icons";
 import React, {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import {isDailyDone} from "../ScoreStore";
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -48,6 +49,26 @@ export const Home: React.FC = () => {
             <Center p="10pt" flexDir="column" bg={startBgColor} rounded="lg">
                 <Heading size="md"><StarIcon/> ゲーム開始</Heading>
                 <VStack m="10pt">
+                    {
+                        idStr !== null ? "" :
+                            <HStack w="100%">
+                                <Heading size="sm" flex={2}>デイリーチャレンジモード</Heading>
+                                <Flex flex={1.5}/>
+                                {
+                                    isDailyDone() ? (
+                                        <Button flex={1} colorScheme='teal' variant='outline'
+                                                onClick={() => navigate("/result/daily")}>
+                                            結果を表示
+                                        </Button>
+                                    ) : (
+                                        <Button flex={1} colorScheme='teal' variant='outline'
+                                                onClick={() => navigate("/game/daily")}>
+                                            開始 (1日1回)
+                                        </Button>
+                                    )
+                                }
+                            </HStack>
+                    }
                     {
                         idStr !== null ? "" :
                             <HStack w="100%">

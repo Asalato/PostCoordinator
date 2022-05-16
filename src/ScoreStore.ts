@@ -26,3 +26,22 @@ export const getCurrentGame = (): GameResult | null => {
 export const updateCurrentGame = (result: GameResult) => {
     localStorage.setItem(CURRENT_RESULT_KEY, JSON.stringify(result));
 }
+
+const DAILY_RESULT_KEY = "DAILYRESULT";
+
+export const getDailyGame = (): GameResult | null => {
+    const resultStr = localStorage.getItem(DAILY_RESULT_KEY);
+    if (resultStr == null) return null;
+    const result: GameResult = JSON.parse(resultStr);
+    return new GameResult(result.id, result.stages, result.day);
+}
+
+export const updateDailyGame = (result: GameResult) => {
+    localStorage.setItem(DAILY_RESULT_KEY, JSON.stringify(result));
+}
+
+export const isDailyDone = (): boolean => {
+    const daily = getDailyGame();
+    if (daily == null || daily.day == null) return false;
+    return new Date().getDate() - daily.day.getDate() < 1;
+}

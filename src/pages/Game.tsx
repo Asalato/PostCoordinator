@@ -2,18 +2,32 @@ import React, {useEffect, useState} from 'react';
 import {PlaceView} from "./PlaceView";
 import {Address} from "../address/Address";
 import {GetRandomAddress} from "../address/GetAddress";
-import {Box, Button, Flex, Heading, HStack, Text, Link, Spacer, Badge, VStack, Wrap, WrapItem} from "@chakra-ui/react";
-import {tryUpdateHighScore, updateCurrentGame} from "../ScoreStore";
+import {
+    Box,
+    Button,
+    Flex,
+    Heading,
+    HStack,
+    Text,
+    Link,
+    Spacer,
+    Badge,
+    VStack,
+    Wrap,
+    WrapItem,
+    Center
+} from "@chakra-ui/react";
+import {isDailyDone, tryUpdateHighScore, updateCurrentGame, updateDailyGame} from "../ScoreStore";
 import {useNavigate} from "react-router-dom";
 import {GameResult, Stage} from "../GameResult";
 
 const MAX_GAME = 5;
 
-export const Game: React.FC<{ seed: number }> = ({seed}) => {
+export const Game: React.FC<{ seed: number, day?: Date }> = ({seed, day}) => {
     const [times, setCount] = useState<number>(1);
-    const [gameResult, setGameResult] = useState<GameResult>(new GameResult(seed, []));
+    const [gameResult, setGameResult] = useState<GameResult>(new GameResult(seed, [], day));
     const addStageToResult = (stage: Stage) => {
-        setGameResult(new GameResult(seed, [...gameResult.stages, stage]));
+        setGameResult(new GameResult(seed, [...gameResult.stages, stage], day));
     }
 
     const [playing, setPlaying] = useState<boolean>(false);
@@ -72,7 +86,8 @@ export const Game: React.FC<{ seed: number }> = ({seed}) => {
                             } else {
                                 updateCurrentGame(gameResult);
                                 tryUpdateHighScore(gameResult.getTotalScore());
-                                navigate("/result")
+                                if (day !== undefined) updateDailyGame(gameResult);
+                                navigate(day === undefined ? "/result" : "/result/daily");
                             }
                         }}>{
                             times < MAX_GAME ? "次のゲームへ進む" : "リザルトを表示"
@@ -82,6 +97,34 @@ export const Game: React.FC<{ seed: number }> = ({seed}) => {
             </Flex>
         </Box>
     );
+}
+
+export const DailyGame: React.FC = () => {
+    const navigate = useNavigate();
+
+    if (isDailyDone())
+        return (
+            <VStack>
+                <Text>今日のデイリーチャレンジは完了しています</Text>
+                <HStack>
+                    <Button colorScheme='teal' variant='outline' onClick={() => navigate("/result/daily")}>
+                        結果を表示
+                    </Button>
+                    <Button colorScheme='teal' variant='outline' onClick={() => navigate("/game")}>
+                        新しいゲームを開始
+                    </Button>
+                    <Button colorScheme='teal' variant='outline' onClick={() => navigate("/")}>
+                        トップに戻る
+                    </Button>
+                </HStack>
+            </VStack>
+        );
+
+    const today = new Date();
+    const dailySeed = Number(`${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`);
+    return (
+        <Game seed={dailySeed} day={today}/>
+    )
 }
 
 export default Game;

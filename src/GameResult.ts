@@ -3,10 +3,12 @@ import {Address, Coordinate} from "./address/Address";
 export class GameResult {
     public id: number;
     public stages: Stage[];
+    public day: Date | undefined;
 
-    public constructor(id: number, stages: Stage[]) {
+    public constructor(id: number, stages: Stage[], day: Date | undefined = undefined) {
         this.id = id;
         this.stages = stages.map(s => new Stage(s.address, s.distanceKm, s.selected));
+        this.day = day == undefined ? undefined : new Date(day);
     }
 
     public getTotalScore(): number {
