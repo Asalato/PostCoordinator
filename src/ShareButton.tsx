@@ -39,19 +39,28 @@ const TwitterIntentTweet = forwardRef<HTMLAnchorElement, TwitterIntentTweetProps
     }
 );
 
-export const ShareButton: React.FC<{ result: GameResult }> = ({result}) => {
-    let text = `🌎Postal Coordinator\nGame ID：${result.id}\n---\n`;
-    for (let i = 0; i < result.stages.length; ++i) {
-        text += `第${i + 1}ステージ：誤差 ${result.stages[i].distanceKm.toFixed(0)}km\n`;
-    }
-    text += `合計スコア：${result.getTotalScore().toFixed(0)}/25000\n---\n`;
+export const ShareButton: React.FC<{ result: GameResult, isDaily?: boolean }> = ({result, isDaily}) => {
+    let text = `🌎Postal Coordinator\n`;
+    if (isDaily && result.day)
+        text += `デイリーチャレンジ: ${result.day.getFullYear()}/${result.day.getMonth() + 1}/${result.day.getDate()}`;
+    else
+        text += `Game ID：${result.id}`;
+    text += '\n---\n';
+    text += `1st：誤差 ${result.stages[0].distanceKm.toFixed(0)}km\n`;
+    text += `2nd：誤差 ${result.stages[1].distanceKm.toFixed(0)}km\n`;
+    text += `3rd：誤差 ${result.stages[2].distanceKm.toFixed(0)}km\n`;
+    text += `4th：誤差 ${result.stages[3].distanceKm.toFixed(0)}km\n`;
+    text += `5th：誤差 ${result.stages[4].distanceKm.toFixed(0)}km\n`;
+    text += `Total：${result.getTotalScore().toFixed(0)}/25000\n---\n`;
     text += `同じステージを遊んでみる -> `
+
+    const url = isDaily ? `https://postalcoordinator.asalato.net?game=daily` : `https://postalcoordinator.asalato.net?game=fixed&id=${result.id}`;
 
     return (
         <Button
             as={TwitterIntentTweet}
             text={text}
-            url={`https://postalcoordinator.asalato.net?id=${result.id}`}
+            url={url}
             hashtags={["PostalCoordinator"]}
             colorScheme="twitter"
             leftIcon={<FaTwitter/>}>

@@ -17,10 +17,22 @@ import React, {ReactElement, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {isDailyDone} from "../ScoreStore";
 
+enum GameMode {
+    Daily, Fixed, Random, Default
+}
+
 export const Home: React.FC = () => {
     const navigate = useNavigate();
     const search = useLocation().search;
-    const idStr = new URLSearchParams(search).get("id");
+    const params = new URLSearchParams(search);
+
+    const gameStr = params.get("game");
+    let gameMode = GameMode.Default;
+    if (gameStr == "daily") gameMode = GameMode.Daily;
+    if (gameStr == "fixed") gameMode = GameMode.Fixed;
+    if (gameStr == "random") gameMode = GameMode.Random;
+
+    const idStr = params.get("id");
     const [id, setId] = useState<number | undefined>(idStr === null ? undefined : Number(idStr));
 
     const startBgColor = useColorModeValue("green.100", "green.900");
@@ -47,11 +59,11 @@ export const Home: React.FC = () => {
                 </Link>
             </Center>
             <Divider m="10pt"/>
-            <Center p="10pt" flexDir="column" bg={startBgColor} rounded="lg">
+            <Center p="10pt" flexDir="column" bg={startBgColor} rounded="lg" minW="85%">
                 <Heading size="md"><StarIcon/> ゲーム開始</Heading>
-                <VStack m="10pt">
+                <VStack m="10pt" w="100%">
                     {
-                        idStr !== null ? "" :
+                        gameMode == GameMode.Default || gameMode == GameMode.Daily ?
                             <HStack w="100%">
                                 <Heading size="sm" flex={2}>デイリーチャレンジモード</Heading>
                                 <Flex flex={1.5}/>
@@ -68,34 +80,38 @@ export const Home: React.FC = () => {
                                         </Button>
                                     )
                                 }
-                            </HStack>
+                            </HStack> : ""
                     }
                     {
-                        idStr !== null ? "" :
+                        gameMode == GameMode.Default || gameMode == GameMode.Random ?
                             <HStack w="100%">
                                 <Heading size="sm" flex={2}>ランダムモード</Heading>
                                 <Flex flex={1.5}/>
                                 <Button flex={1} colorScheme='teal' variant='outline' onClick={() => navigate("/game")}>
                                     開始
                                 </Button>
-                            </HStack>
+                            </HStack> : ""
                     }
-                    <HStack w="100%">
-                        <Heading size="sm" flex={2}>固定ステージモード</Heading>
-                        <Flex flex={0.1}/>
-                        <InputGroup flex={1.8}>
-                            <InputLeftAddon>ID</InputLeftAddon>
-                            <NumberInput w="100%" textAlign="center" value={id}
-                                         onChange={v => setId(Number(v))}>
-                                <NumberInputField bgColor="rgba(125, 125, 125, 0.05)"/>
-                            </NumberInput>
-                        </InputGroup>
-                        <Flex flex={0.1}/>
-                        <Button flex={0.5} colorScheme='teal' variant='outline' onClick={() => navigate(`/game/${id}`)}
-                                disabled={id === undefined}>
-                            開始
-                        </Button>
-                    </HStack>
+                    {
+                        gameMode == GameMode.Default || gameMode == GameMode.Fixed ?
+                            <HStack w="100%">
+                                <Heading size="sm" flex={2}>固定ステージモード</Heading>
+                                <Flex flex={0.1}/>
+                                <InputGroup flex={1.8}>
+                                    <InputLeftAddon>ID</InputLeftAddon>
+                                    <NumberInput w="100%" textAlign="center" value={id}
+                                                 onChange={v => setId(Number(v))}>
+                                        <NumberInputField bgColor="rgba(125, 125, 125, 0.05)"/>
+                                    </NumberInput>
+                                </InputGroup>
+                                <Flex flex={0.1}/>
+                                <Button flex={0.5} colorScheme='teal' variant='outline'
+                                        onClick={() => navigate(`/game/${id}`)}
+                                        disabled={id === undefined}>
+                                    開始
+                                </Button>
+                            </HStack> : ""
+                    }
                 </VStack>
             </Center>
             <Divider m="10pt"/>

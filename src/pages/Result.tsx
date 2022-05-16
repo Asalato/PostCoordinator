@@ -101,7 +101,7 @@ export const Result: React.FC<{ isDaily?: boolean }> = ({isDaily}) => {
             </Text>
             <Divider/>
             <Box>
-                <ShareButton result={currentGame}/>
+                <ShareButton result={currentGame} isDaily={currentGame.day && (isDaily || isDaily !== undefined)}/>
             </Box>
             <HStack>
                 <Button colorScheme='teal' variant='outline' onClick={() => navigate("/game")}>
