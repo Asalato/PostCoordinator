@@ -123,7 +123,10 @@ export const Home: React.FC = () => {
                     <Link href="http://geoapi.heartrails.com/api.html" isExternal>HeartRails Geo API</Link> is used to
                     convert between zip codes and coordinates.<br/>
                     郵便番号データは<Link href="https://www.post.japanpost.jp/zipcode/download.html"
-                                  isExternal>日本郵便のホームページ</Link>より取得しました。
+                                  isExternal>日本郵便のホームページ</Link>より取得しました。<br/>
+                    This site uses the <Link
+                    href="https://fonts.google.com/specimen/DotGothic16?subset=japanese#standard-styles"
+                    isExternal>DotGothic16</Link> font obtained from Google Fonts.
                 </Text>
                 <Text m="5pt" textAlign="center" fontSize="xs">
                     <Image src="./logo.png" w="0.7rem" display="inline" marginX="0.2rem"/><Link

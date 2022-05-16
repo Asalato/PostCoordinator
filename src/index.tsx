@@ -20,20 +20,8 @@ const theme = extendTheme({
 })
 
 root.render(
-    <>
-        <Heading>
-            <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1, shrink-to-fit=no"
-            />
-            <link
-                href="https://fonts.googleapis.com/css2?family=DotGothic16:wght@400;500;600;700&display=swap"
-                rel="stylesheet"
-            />
-        </Heading>
-        <ChakraProvider theme={theme}>
-            <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
-            <App/>
-        </ChakraProvider>
-    </>
+    <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
+        <App/>
+    </ChakraProvider>
 );
